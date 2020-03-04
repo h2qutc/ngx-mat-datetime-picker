@@ -33,7 +33,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 import { Subscription } from 'rxjs';
 import { NgxMatDatetimePicker } from './ngx-mat-datetime-picker.component';
-import { createMissingDateImplError, sameTime, formatTime } from './utils/date-utils';
+import { createMissingDateImplError, sameTime } from './utils/date-utils';
 import * as moment_ from 'moment';
 const moment = moment_;
 
@@ -371,9 +371,8 @@ export class NgxMatDatetimeInput<D> implements ControlValueAccessor, OnDestroy, 
     private _formatValue(value: D | null) {
         let displayValue = '';
         if (value) {
-            const formattedTime = this._formatTime(value);
             const formattedDate = this._dateAdapter.format(value, this._dateFormats.display.dateInput);
-            displayValue = `${formattedDate} ${formattedTime}`;
+            displayValue = formattedDate;
         }
         this._elementRef.nativeElement.value = displayValue;
     }
@@ -385,9 +384,4 @@ export class NgxMatDatetimeInput<D> implements ControlValueAccessor, OnDestroy, 
     private _getValidDateOrNull(obj: any): D | null {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     }
-
-    private _formatTime(value: D): string {
-        return formatTime(value as any);
-    }
-
 }
