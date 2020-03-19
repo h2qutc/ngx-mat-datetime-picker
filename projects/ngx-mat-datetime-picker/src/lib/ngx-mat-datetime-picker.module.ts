@@ -34,7 +34,8 @@ import { NgxMatYearView } from './ngx-mat-year-view';
       NgxMatMonthView,
       NgxMatYearView,
       NgxMatMultiYearView,
-      NgxMatCalendarHeader
+      NgxMatCalendarHeader,
+      NgxMatDatetimeContent,
    ],
    declarations: [
       NgxMatDatetimePicker,

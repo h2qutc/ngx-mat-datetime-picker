@@ -58,7 +58,6 @@ export class AppRoutingModule { }
       FormsModule,
       ReactiveFormsModule,
       MatButtonModule,
-      NgxMatNativeDateModule,
       MatRadioModule,
       MatSelectModule,
       MatCheckboxModule,
@@ -67,7 +66,8 @@ export class AppRoutingModule { }
       MatIconModule,
       MatListModule,
       MatCardModule,
-      MatDividerModule
+      MatDividerModule,
+      NgxMatNativeDateModule,
    ],
    bootstrap: [
       AppComponent
