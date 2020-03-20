@@ -31,7 +31,7 @@ npm install --save ngx-mat-datetime-picker@2.x
 ```
 npm install --save ngx-mat-datetime-picker@3.x
 ```
-@see [DEMO stackblitz for Angular 9](https://stackblitz.com/edit/demo-ngx-mat-datetime-picker)
+@see [DEMO stackblitz for Angular 9](https://stackblitz.com/edit/demo-ngx-mat-datetime-picker-angular9)
 
 ## Setup
 Basically the same way the @angular/material Datepicker is configured and imported.
