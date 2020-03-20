@@ -65,7 +65,7 @@ export class NgxMatDatetimeContent<D> extends _MatDatepickerContentMixinBase
   implements AfterViewInit, CanColor {
 
   /** Reference to the internal calendar component. */
-  @ViewChild(NgxMatCalendar) _calendar: NgxMatCalendar<D>;
+  @ViewChild(NgxMatCalendar, { static: true }) _calendar: NgxMatCalendar<D>;
 
   /** Reference to the internal time picker component. */
   @ViewChild(NgxMatTimepickerComponent) _timePicker: NgxMatTimepickerComponent<D>;
@@ -453,7 +453,20 @@ export class NgxMatDatetimePicker<D> implements OnDestroy, CanColor {
       direction: this._dir ? this._dir.value : 'ltr',
       viewContainerRef: this._viewContainerRef,
       panelClass: 'mat-datepicker-dialog',
-      hasBackdrop: this._hasBackdrop
+
+      // These values are all the same as the defaults, but we set them explicitly so that the
+      // datepicker dialog behaves consistently even if the user changed the defaults.
+      hasBackdrop: true,
+      disableClose: false,
+      width: '',
+      height: '',
+      minWidth: '',
+      minHeight: '',
+      maxWidth: '80vw',
+      maxHeight: '',
+      position: {},
+      autoFocus: true,
+      restoreFocus: true
     });
 
     this._dialogRef.afterClosed().subscribe(() => this.close());
@@ -468,19 +481,25 @@ export class NgxMatDatetimePicker<D> implements OnDestroy, CanColor {
         this._viewContainerRef);
     }
 
-    if (!this._popupRef) {
-      this._createPopup();
-    }
+    this._destroyPopup();
+    this._createPopup();
 
-    if (!this._popupRef.hasAttached()) {
-      this._popupComponentRef = this._popupRef.attach(this._calendarPortal);
-      this._popupComponentRef.instance.datepicker = this;
-      this._setColor();
+    this._popupComponentRef = this._popupRef!.attach(this._calendarPortal);
+    this._popupComponentRef.instance.datepicker = this;
+    this._setColor();
 
-      // Update the position once the calendar has rendered.
-      this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
-        this._popupRef.updatePosition();
-      });
+    // Update the position once the calendar has rendered.
+    this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
+      this._popupRef!.updatePosition();
+    });
+
+  }
+
+  /** Destroys the current popup overlay. */
+  private _destroyPopup() {
+    if (this._popupRef) {
+      this._popupRef.dispose();
+      this._popupRef = this._popupComponentRef = null;
     }
   }
 
