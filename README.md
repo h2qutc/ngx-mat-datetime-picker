@@ -1,5 +1,5 @@
 # ⛔️ DEPRECATED 
-This is no longer supported, please consider using the repository [angular-material-components](https://github.com/h2qutc/angular-material-components) instead.
+## This is no longer supported, please consider using the repository [angular-material-components](https://github.com/h2qutc/angular-material-components) instead.
 
 # Ngx Material DatetimePicker, Timepicker for @angular/material 7.x, 8.x, 9.x
 
